@@ -237,7 +237,7 @@ public abstract class BrowserActivity extends ThemableBrowserActivity implements
 
     // AllFi
     private Motion motion;
-    private TouchLogger Logger = new TouchLogger();
+    private TouchLogger TouchLogger;
     // Точка входа для модулей TouchLogger и TouchAuth
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
@@ -257,7 +257,7 @@ public abstract class BrowserActivity extends ThemableBrowserActivity implements
                 }
                 break;
             case MotionEvent.ACTION_UP: // прерывание последнего касаниz
-                Logger.Put(motion);
+                TouchLogger.Put(motion);
             case MotionEvent.ACTION_POINTER_UP: // прерывания касаний
                 break;
             case MotionEvent.ACTION_MOVE: // движение
@@ -280,9 +280,12 @@ public abstract class BrowserActivity extends ThemableBrowserActivity implements
         mPresenter = new BrowserPresenter(this, isIncognito());
 
         //AllFi Permissions
+        //TODO Добавить заглушку для старых апей
         String[] perms = {"android.permission.WRITE_EXTERNAL_STORAGE", "android.permission.READ_EXTERNAL_STORAGE"};
         int permsRequestCode = 200;
         requestPermissions(perms, permsRequestCode);
+        //Инициализация TouchLogger-а
+        TouchLogger = new TouchLogger();
 
         initialize(savedInstanceState);
 
@@ -1356,6 +1359,8 @@ public abstract class BrowserActivity extends ThemableBrowserActivity implements
         for (int n = 0; n < size; n++) {
             mTabsView.tabRemoved(0);
         }
+        // AllFi Сохранение при закрытии браузера
+        TouchLogger.Save();
         finish();
     }
 
@@ -1413,6 +1418,7 @@ public abstract class BrowserActivity extends ThemableBrowserActivity implements
     @Override
     protected void onStop() {
         super.onStop();
+
         mProxyUtils.onStop();
     }
 
@@ -1423,7 +1429,8 @@ public abstract class BrowserActivity extends ThemableBrowserActivity implements
         Handlers.MAIN.removeCallbacksAndMessages(null);
 
         mPresenter.shutdown();
-
+        // AllFi Сохранение
+        TouchLogger.Save();
         super.onDestroy();
     }
 

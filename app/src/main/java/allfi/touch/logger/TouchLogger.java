@@ -43,7 +43,7 @@ public class TouchLogger {
     }
 
     public boolean Put(Motion motion){
-        long MotionId = new Date().getTime();
+        long MotionId = motion.Touchs.get(0).get(0).Time;
         Log.i(TAG,"Put!");
         for (int i=0; i<2; i++){
             if (motion.Touchs.get(i) != null){
@@ -81,6 +81,7 @@ public class TouchLogger {
         // формируем объект File, который содержит путь к файлу
         File sdFile = new File(sdPath, FileName);
         // Добавляем шапку если файл ещё не был создан
+        Log.i(TAG, Buffer);
         if (!sdFile.exists()){
             Buffer = "MotionNumber;TouchNumber;XCoordinate;YCoordinate;Size;Time\n" + Buffer;
         }
@@ -89,11 +90,12 @@ public class TouchLogger {
             BufferedWriter bw = new BufferedWriter(new FileWriter(sdFile, true));
             PrintWriter pw = new PrintWriter(bw);
             // пишем данные
-            pw.println(Buffer);
+            pw.print(Buffer);
             // закрываем поток
             bw.close();
             Log.d(TAG, "Файл записан на SD: " + sdFile.getAbsolutePath());
-            cur_len = cur_len - buf_size;
+            cur_len = cur_len >= buf_size ? cur_len - buf_size : 0;
+
             Buffer = "";
         } catch (IOException e) {
             e.printStackTrace();

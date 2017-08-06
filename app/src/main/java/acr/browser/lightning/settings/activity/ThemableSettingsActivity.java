@@ -57,5 +57,4 @@ public abstract class ThemableSettingsActivity extends AppCompatPreferenceActivi
             recreate();
         }
     }
-
 }
