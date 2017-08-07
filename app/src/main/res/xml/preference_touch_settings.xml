@@ -2,6 +2,10 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory android:title="@string/touch_settings">
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="cb_enabled"
+            android:title="@string/touch_logger" />
         <Preference
             android:key="buf_size"
             android:title="@string/buf_size" />

@@ -276,6 +276,14 @@ public class PreferenceManager {
         putInt("buf_size", choice);
     }
 
+    public boolean getTouchLoggerEnabled(){
+        return mPrefs.getBoolean("touch_logger_enabled", false);
+    }
+
+    public void setTouchLoggerEnabled(boolean enabled){
+        putBoolean("touch_logger_enabled", enabled);
+    }
+
     public int getUserAgentChoice() {
         return mPrefs.getInt(Name.USER_AGENT, 1);
     }

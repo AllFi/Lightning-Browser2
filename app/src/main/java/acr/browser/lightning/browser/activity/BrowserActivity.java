@@ -290,6 +290,8 @@ public abstract class BrowserActivity extends ThemableBrowserActivity implements
         TouchLogger = new TouchLogger();
         int buf_size = (int)Math.pow(10, mPreferences.getBufSize());
         TouchLogger.SetBufSize(buf_size);
+        TouchLogger.SetEnabled(mPreferences.getTouchLoggerEnabled());
+
         initialize(savedInstanceState);
 
     }

@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 
 import acr.browser.lightning.BrowserApp;
 import acr.browser.lightning.R;
@@ -24,8 +26,10 @@ public class TouchSettingsFragment extends LightningPreferenceFragment implement
 
     private Activity mActivity;
     private static final String SETTINGS_BUFFER_SIZE = "buf_size";
+    private static final String SETTINGS_TOUCH_LOGGER = "cb_enabled";
     private Preference bufSize;
     private CharSequence[] mBufSizeChoices;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,6 +48,8 @@ public class TouchSettingsFragment extends LightningPreferenceFragment implement
         bufSize = findPreference(SETTINGS_BUFFER_SIZE);
         bufSize.setOnPreferenceClickListener(this);
         mBufSizeChoices = getResources().getStringArray(R.array.buf_size_choices_array);
+        CheckBoxPreference cbEnabled = (CheckBoxPreference) findPreference(SETTINGS_TOUCH_LOGGER);
+        cbEnabled.setOnPreferenceChangeListener(this);
     }
 
     private void setProxyChoice(int choice) {
@@ -84,8 +90,13 @@ public class TouchSettingsFragment extends LightningPreferenceFragment implement
         if (newValue instanceof Boolean) {
             checked = Boolean.TRUE.equals(newValue);
         }
+        Log.d("blabla", "1");
         switch (preference.getKey()) {
-
+            case SETTINGS_TOUCH_LOGGER:
+                TouchLogger.SetEnabled(checked);
+                mPreferenceManager.setTouchLoggerEnabled(checked);
+                Log.d("blabla", "2");
+                return true;
             default:
                 return false;
         }

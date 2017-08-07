@@ -28,7 +28,7 @@ public class TouchLogger {
     private String FileName;
     public String DIR_SD = "TouchLogger";
     private static TouchLogger curLogger;
-
+    private static boolean Enabled;
 
     public TouchLogger(){
         buf_size = 10;
@@ -36,6 +36,11 @@ public class TouchLogger {
         Buffer = "";
         Log.i(TAG, "Created!");
         curLogger = this;
+        Enabled = false;
+    }
+
+    public static void SetEnabled(boolean enabled){
+        Enabled = enabled;
     }
 
     public static void SetBufSize(int size){
@@ -46,6 +51,7 @@ public class TouchLogger {
     }
 
     public boolean Put(Motion motion){
+        if (!Enabled) return false;
         long MotionId = motion.Touchs.get(0).get(0).Time;
         Log.i(TAG,"Put!");
         for (int i=0; i<2; i++){
