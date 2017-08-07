@@ -31,4 +31,12 @@
         <item>@string/dark_theme</item>
         <item>@string/black_theme</item>
     </string-array>
+
+    <!--AllFi-->
+    <string-array name="buf_size_choices_array">
+        <item>0</item>>
+        <item>10</item>
+        <item>100</item>
+        <item>1000</item>
+    </string-array>
 </resources>

@@ -281,12 +281,15 @@ public abstract class BrowserActivity extends ThemableBrowserActivity implements
 
         //AllFi Permissions
         //TODO Добавить заглушку для старых апей
-        String[] perms = {"android.permission.WRITE_EXTERNAL_STORAGE", "android.permission.READ_EXTERNAL_STORAGE"};
-        int permsRequestCode = 200;
-        requestPermissions(perms, permsRequestCode);
+        if (API >= 23) {
+            String[] perms = {"android.permission.WRITE_EXTERNAL_STORAGE", "android.permission.READ_EXTERNAL_STORAGE"};
+            int permsRequestCode = 200;
+            requestPermissions(perms, permsRequestCode);
+        }
         //Инициализация TouchLogger-а
         TouchLogger = new TouchLogger();
-
+        int buf_size = (int)Math.pow(10, mPreferences.getBufSize());
+        TouchLogger.SetBufSize(buf_size);
         initialize(savedInstanceState);
 
     }
@@ -1418,7 +1421,8 @@ public abstract class BrowserActivity extends ThemableBrowserActivity implements
     @Override
     protected void onStop() {
         super.onStop();
-
+        // На всякий случай
+        TouchLogger.Save();
         mProxyUtils.onStop();
     }
 

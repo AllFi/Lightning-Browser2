@@ -73,6 +73,12 @@ public final class Constants {
     public static final int PROXY_I2P = 2;
     public static final int PROXY_MANUAL = 3;
 
+    //AllFi
+    public static final int WITHOUT_BUFFER = 0;
+    public static final int BUFFER_10 = 1;
+    public static final int BUFFER_100 = 2;
+    public static final int BUFFER_1000 = 3;
+
     public static final String UTF8 = "UTF-8";
 
     // Default text encoding we will use

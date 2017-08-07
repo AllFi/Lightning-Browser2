@@ -33,4 +33,8 @@
     <header
         android:fragment="acr.browser.lightning.settings.fragment.DebugSettingsFragment"
         android:title="@string/debug_title"/>
+    <!--AllFi-->
+    <header
+        android:fragment="acr.browser.lightning.settings.fragment.TouchSettingsFragment"
+        android:title="@string/touch_settings"/>
 </preference-headers>

@@ -267,6 +267,15 @@ public class PreferenceManager {
         }
     }
 
+    // AllFi
+    public int getBufSize() {
+        return mPrefs.getInt("buf_size", 0);
+    }
+
+    public void setBufSize(int choice){
+        putInt("buf_size", choice);
+    }
+
     public int getUserAgentChoice() {
         return mPrefs.getInt(Name.USER_AGENT, 1);
     }

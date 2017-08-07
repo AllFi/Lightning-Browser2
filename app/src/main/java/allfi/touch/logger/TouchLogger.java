@@ -20,25 +20,28 @@ import allfi.touch.primitives.Motion;
  */
 
 public class TouchLogger {
-    private int buf_size;
+    private static int buf_size;
     private int cur_len;
     //private Vector<Motion> Buffer;  наверно лучше хранить сразу в виде csv строки
     private String Buffer;
     private static final String TAG = "TouchLogger";
     private String FileName;
     public String DIR_SD = "TouchLogger";
+    private static TouchLogger curLogger;
+
 
     public TouchLogger(){
         buf_size = 10;
         cur_len = 0;
         Buffer = "";
         Log.i(TAG, "Created!");
+        curLogger = this;
     }
 
-    public void SetBufSize(int size){
+    public static void SetBufSize(int size){
         buf_size = size;
-        while (cur_len >= buf_size){
-            Save();
+        if (curLogger.cur_len >= buf_size){
+            curLogger.Save();
         }
     }
 
@@ -81,7 +84,6 @@ public class TouchLogger {
         // формируем объект File, который содержит путь к файлу
         File sdFile = new File(sdPath, FileName);
         // Добавляем шапку если файл ещё не был создан
-        Log.i(TAG, Buffer);
         if (!sdFile.exists()){
             Buffer = "MotionNumber;TouchNumber;XCoordinate;YCoordinate;Size;Time\n" + Buffer;
         }
@@ -94,8 +96,7 @@ public class TouchLogger {
             // закрываем поток
             bw.close();
             Log.d(TAG, "Файл записан на SD: " + sdFile.getAbsolutePath());
-            cur_len = cur_len >= buf_size ? cur_len - buf_size : 0;
-
+            cur_len = 0;
             Buffer = "";
         } catch (IOException e) {
             e.printStackTrace();

@@ -218,6 +218,7 @@
 
     <!--AllFi Настройки touch logger и touch auth-->
     <string name="touch_settings">Настройки использования касаний</string>
+    <string name="buf_size">Размер буфера</string>
 
     <string name="faq">FAQ</string>
     <string name="faq_description">Часто задаваемые вопросы</string>

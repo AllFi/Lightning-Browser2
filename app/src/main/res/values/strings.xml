@@ -235,6 +235,7 @@
 
     <!--AllFi Настройки touch logger и touch auth-->
     <string name="touch_settings">Touch Settings</string>
+    <string name="buf_size">Buffer Size</string>
 
     <!-- debug strings -->
     <string name="debug_title">Debug Settings</string>

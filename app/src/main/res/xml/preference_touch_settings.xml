@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="@string/touch_settings">
+        <Preference
+            android:key="buf_size"
+            android:title="@string/buf_size" />
+    </PreferenceCategory>
+</PreferenceScreen>
